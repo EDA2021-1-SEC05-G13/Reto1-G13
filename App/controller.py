@@ -30,8 +30,56 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    catalog = model.newCatalog()
+    return catalog
 
 # Funciones para la carga de datos
+
+def loadData(catalog):
+    """
+    Carga los datos de los archivos y cargar los datos en la
+    estructura de datos
+    """
+    loadVideos(catalog)
+    loadCategories(catalog)
+    #loadBooksTags(catalog)
+    #sortBooks(catalog)
+
+def loadVideos(catalog):
+    """
+    Carga los videos del archivo.  Por cada video se toma su canal y por
+    cada uno de ellos, se crea en la lista de canales, a dicho canal y una
+    referencia al video que se esta procesando.
+    """
+    videosfile = cf.data_dir + 'videos/videos-small.csv'
+    input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
+    for video in input_file:
+        model.addVideo(catalog, video)
+
+
+def loadCategories(catalog):
+    """
+    Carga todos las categorias del archivo y los agrega a la lista de categorias
+    """
+    categoriasfile = cf.data_dir + 'videos/category-id.csv'
+    input_file = csv.DictReader(open(categoriasfile, encoding='utf-8'))
+    for cat in input_file:
+        model.addCategory(catalog, category_)
+
+
+#def loadBooksTags(catalog):
+    """
+    Carga la información que asocia tags con libros.
+    """
+    #booktagsfile = cf.data_dir + 'GoodReads/book_tags-small.csv'
+    #input_file = csv.DictReader(open(booktagsfile, encoding='utf-8'))
+    #for booktag in input_file:
+        #model.addBookTag(catalog, booktag)
+
 
 # Funciones de ordenamiento
 
