@@ -43,13 +43,13 @@ def newCatalog():
     una lista vacia para las categorias. Retorna el catalogo inicializado.
     """
     catalog = {'videos': None,
-               'channel_title': None,
+               #'channel_title': None,
                'category-id': None}
 
     catalog['videos'] = lt.newList()
-    catalog['channel_title'] = lt.newList('ARRAY_LIST'),
+    #catalog['channel_title'] = lt.newList('ARRAY_LIST'),
                                     #cmpfunction=comparechannel)
-    catalog['category-id'] = lt.newList('ARRAY_LIST'),
+    catalog['category-id'] = lt.newList('ARRAY_LIST')
                                  #cmpfunction=comparecategory)
 
     return catalog
@@ -60,64 +60,66 @@ def addVideo(catalog, video):
     # Se adiciona el libro a la lista de libros
     lt.addLast(catalog['videos'], video)
     # Se obtienen los autores del libro
-    channel_title = video['channel_title'].split(",")
+    #channel_title = video['channel_title'].split(",")
     # Cada autor, se crea en la lista de libros del catalogo, y se
     # crea un libro en la lista de dicho autor (apuntador al libro)
-    for channel in channel_title:
-        addVideoChannel(catalog, channel.strip(), video)
+    #for channel in channel_title:
+        #addVideoChannel(catalog, channel.strip(), video)
 
 
-def addVideoChannel(catalog, channelname, video):
+#def addVideoChannel(catalog, channelname, video):
     """
     Adiciona un canal a lista de canales, la cual guarda referencias
     a los videos de dicho canal
     """
-    channel_title = catalog['channel_title']
-    poschannel = lt.isPresent(channel_title, channelname)
-    if poschannel > 0:
-        channel = lt.getElement(channel_title, poschannel)
-    else:
-        channel = newChannel(channelname)
-        lt.addLast(channel_title, channel)
-    lt.addLast(channel['videos'], video)
+    #channel_title = catalog['channel_title']
+    #poschannel = lt.isPresent(channel_title, channelname)
+    #if poschannel > 0:
+        #channel = lt.getElement(channel_title, poschannel)
+    #else:
+        #channel = newChannel(channelname)
+        #lt.addLast(channel_title, channel)
+    #lt.addLast(channel['videos'], video)
 
 
 def addCategory(catalog, category_):
     """
     Adiciona una catagoria a la lista de categorias
     """
-    c = newVideoCategory(category_['name'], category_['id'])
-    lt.addLast(catalog['category-id'], c)
+    #c = newVideoCategory(category_['name'], category_['id'])
+    lt.addLast(catalog['category-id'], category_)
+    
+
 
 # Funciones para creacion de datos
-def newChannel(name):
+#def newChannel(name):
     """
     Crea una nueva estructura para modelar los videos de
     un canal
     """
-    channel = {'name': "", "books": None}
-    channel['name'] = name
-    channel['videos'] = lt.newList('ARRAY_LIST')
-    return channel
+    #channel = {'name': "", "books": None}
+    #channel['name'] = name
+    #channel['videos'] = lt.newList('ARRAY_LIST')
+    #return channel
 
 
-def newVideoCategory(name, id):
+#def newVideoCategory(name, id):
     """
     Esta estructura almancena las categorias utilizadas para marcar videos.
     """
-    cat = {'name': '', 'tag_id': ''}
-    cat['name'] = name
-    cat['tag_id'] = id
-    return cat
+    #cat = {'name': '', 'tag_id': ''}
+    #cat['name'] = name
+    #cat['tag_id'] = id
+    #return cat
 
 
-def newBookTag(cat_id, video_id):
+#def newBookTag(cat_id, video_id):
     """
     Esta estructura crea una relación entre una categoria y
     los videos que han sido marcados con dicho cat.
     """
-    category_ = {'id': tag_id, 'video_id': video_id}
-    return category_
+    #category_ = {'id': tag_id, 'video_id': video_id}
+    #return category_
 
 # Funciones de consulta
 

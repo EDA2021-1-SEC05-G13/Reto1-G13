@@ -56,7 +56,7 @@ def loadVideos(catalog):
     referencia al video que se esta procesando.
     """
     videosfile = cf.data_dir + 'videos/videos-small.csv'
-    input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
+    input_file = csv.DictReader(open(videosfile, encoding='utf-8'), delimiter=',')
     for video in input_file:
         model.addVideo(catalog, video)
 
@@ -66,9 +66,9 @@ def loadCategories(catalog):
     Carga todos las categorias del archivo y los agrega a la lista de categorias
     """
     categoriasfile = cf.data_dir + 'videos/category-id.csv'
-    input_file = csv.DictReader(open(categoriasfile, encoding='utf-8'))
+    input_file = csv.DictReader(open(categoriasfile, encoding='utf-8'), delimiter='\t')
     for cat in input_file:
-        model.addCategory(catalog, category_)
+        model.addCategory(catalog, cat)
 
 
 #def loadBooksTags(catalog):
