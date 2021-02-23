@@ -36,7 +36,7 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(parametro):
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar
     todos los videos, adicionalmente, crea una lista vacia para los canales y
@@ -44,9 +44,9 @@ def newCatalog():
     """
     catalog = {'videos': None,
                'category-id': None}
-
-    catalog['videos'] = lt.newList()
-    catalog['category-id'] = lt.newList('ARRAY_LIST')
+               
+    catalog['videos'] = lt.newList(parametro)
+    catalog['category-id'] = lt.newList(parametro)
 
     return catalog
 

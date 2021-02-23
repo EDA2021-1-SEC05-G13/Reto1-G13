@@ -43,17 +43,21 @@ def printMenu():
     print("4- Encontrar video tendencia por categoria")
     print("5- Buscar videos con mas likes")
 
-def initCatalog():
+def initCatalog(parametro):
     """
     Inicializa el catalogo de libros
     """
-    return controller.initCatalog()
+    return controller.initCatalog(parametro)
 
 def loadData(catalog):
     """
     Carga los libros en la estructura de datos
     """
     controller.loadData(catalog)
+
+def printOps():
+    print("1. Arraylist")
+    print("2. Linked List")
 
 catalog = None
 
@@ -64,8 +68,10 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        printOps()
+        parametro = input('Escriba un tipo de lista para representar el catalogo: LINKED_LIST o ARRAY_LIST\n')
         print("Cargando información de los archivos ....")
-        catalog = initCatalog()
+        catalog = initCatalog(parametro)
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))

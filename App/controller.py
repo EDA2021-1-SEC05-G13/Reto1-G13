@@ -29,11 +29,11 @@ import csv
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-def initCatalog():
+def initCatalog(parametro):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(parametro)
     return catalog
 
 def loadData(catalog):
