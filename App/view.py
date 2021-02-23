@@ -43,11 +43,11 @@ def printMenu():
     print("4- Encontrar video tendencia por categoria")
     print("5- Buscar videos con mas likes")
 
-def initCatalog(parametro):
+def initCatalog(parametro): 
     """
     Inicializa el catalogo de libros
     """
-    return controller.initCatalog(parametro)
+    return controller.initCatalog(parametro) 
 
 def loadData(catalog):
     """
@@ -71,7 +71,7 @@ while True:
         printOps()
         parametro = input('Escriba un tipo de lista para representar el catalogo: LINKED_LIST o ARRAY_LIST\n')
         print("Cargando información de los archivos ....")
-        catalog = initCatalog(parametro)
+        catalog = initCatalog(parametro) 
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
@@ -95,10 +95,10 @@ while True:
         print(t7-t6)
     
     elif int(inputs[0]) == 5:
-        t8= time.process_time()
-        print("Se realizo req 4")
-        t9 = time.process_time()
-        print(t9-t8)
+        size = input("Indique tamaño de la muestra: ") 
+        result = controller.sortVideos(catalog, int(size)) 
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
+        printResults(result[1])
     
     else:
         sys.exit(0)

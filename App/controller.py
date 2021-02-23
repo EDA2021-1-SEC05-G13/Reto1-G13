@@ -29,11 +29,11 @@ import csv
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-def initCatalog(parametro):
+def initCatalog(parametro): 
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog(parametro)
+    catalog = model.newCatalog(parametro) 
     return catalog
 
 def loadData(catalog):
@@ -67,5 +67,10 @@ def loadCategories(catalog):
 
 
 # Funciones de ordenamiento
+def sortVideos(catalog, size):
+    """
+    Ordena los videos por views
+    """
+    return model.sortVideos(catalog, size)
 
 # Funciones de consulta sobre el catálogo

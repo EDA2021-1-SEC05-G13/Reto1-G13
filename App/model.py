@@ -26,6 +26,7 @@
 
 
 import config as cf
+import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 assert cf
@@ -36,7 +37,7 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog(parametro):
+def newCatalog(parametro): 
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar
     todos los videos, adicionalmente, crea una lista vacia para los canales y
@@ -44,9 +45,10 @@ def newCatalog(parametro):
     """
     catalog = {'videos': None,
                'category-id': None}
-               
-    catalog['videos'] = lt.newList(parametro)
-    catalog['category-id'] = lt.newList(parametro)
+
+    catalog['videos'] = lt.newList(parametro, 
+                                   cmpfunction=cmpVideosByViews) 
+    catalog['category-id'] = lt.newList(parametro) 
 
     return catalog
 
@@ -69,5 +71,16 @@ def addCategory(catalog, category_):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
+def cmpVideosByViews(video1, video2):
+    if(int(video1['views']) < int (video2['views'])):
+        return true
 # Funciones de ordenamiento
+
+def sortVideos(catalog, size):
+    sub_list = lt.subList(catalog ['videos'], 0, size)
+    sub_list = sub_list.copy()
+    time1 = time.process_time()
+    sorted_list = sa.sort(catalog, cmpVideosByViews)
+    time2 = time.process_time()
+    time3 = (time2 - time1) * 1000
+    return time3, sorted_list
