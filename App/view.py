@@ -68,7 +68,6 @@ while True:
         catalog = initCatalog()
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
-        #print('Canales cargados: ' + str(lt.size(catalog['channel_title'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
 
     elif int(inputs[0]) == 2:

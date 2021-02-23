@@ -29,15 +29,12 @@ import csv
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-# Inicialización del Catálogo de libros
 def initCatalog():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     catalog = model.newCatalog()
     return catalog
-
-# Funciones para la carga de datos
 
 def loadData(catalog):
     """
@@ -46,8 +43,6 @@ def loadData(catalog):
     """
     loadVideos(catalog)
     loadCategories(catalog)
-    #loadBooksTags(catalog)
-    #sortBooks(catalog)
 
 def loadVideos(catalog):
     """
@@ -69,16 +64,6 @@ def loadCategories(catalog):
     input_file = csv.DictReader(open(categoriasfile, encoding='utf-8'), delimiter='\t')
     for cat in input_file:
         model.addCategory(catalog, cat)
-
-
-#def loadBooksTags(catalog):
-    """
-    Carga la información que asocia tags con libros.
-    """
-    #booktagsfile = cf.data_dir + 'GoodReads/book_tags-small.csv'
-    #input_file = csv.DictReader(open(booktagsfile, encoding='utf-8'))
-    #for booktag in input_file:
-        #model.addBookTag(catalog, booktag)
 
 
 # Funciones de ordenamiento
