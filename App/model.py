@@ -29,6 +29,9 @@ import config as cf
 import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import selectionsort as ss
+from DISClib.Algorithms.Sorting import insertionsort as ins
+
 assert cf
 
 """
@@ -46,9 +49,18 @@ def newCatalog(parametro):
     catalog = {'videos': None,
                'category-id': None}
 
-    catalog['videos'] = lt.newList(parametro, 
-                                   cmpfunction=cmpVideosByViews) 
-    catalog['category-id'] = lt.newList(parametro) 
+    if parametro==1:
+        catalog['videos'] = lt.newList('SINGLE_LINKED', 
+                                   cmpfunction=cmpVideosByViews) #cambio aca
+        catalog['category-id'] = lt.newList('SINGLE_LINKED',
+                                  cmpfunction=None) #cambio aca
+
+    elif parametro == 2:
+        catalog['videos'] = lt.newList('ARRAY_LIST', 
+                                   cmpfunction=cmpVideosByViews) #cambio aca
+        catalog['category-id'] = lt.newList('ARRAY_LIST', 
+                                    cmpfunction=None) #cambio aca) 
+
 
     return catalog
 
@@ -73,14 +85,26 @@ def addCategory(catalog, category_):
 # Funciones utilizadas para comparar elementos dentro de una lista
 def cmpVideosByViews(video1, video2):
     if(int(video1['views']) < int (video2['views'])):
-        return true
+        return True
+    elif(int(video1['views']) > int (video2['views'])):
+        return False
+    else:
+        if(int(video1['likes']) < int(video2['likes'])):
+            return False
+        elif(int(video1['likes']) > int(video2['likes'])):
+            return True
 # Funciones de ordenamiento
 
-def sortVideos(catalog, size):
+def sortVideos(catalog, size, sort):
     sub_list = lt.subList(catalog ['videos'], 0, size)
     sub_list = sub_list.copy()
     time1 = time.process_time()
-    sorted_list = sa.sort(catalog, cmpVideosByViews)
+    if sort == 1:
+        sorted_list = ss.sort(sub_list, cmpVideosByViews)
+    elif sort == 2:
+        sorted_list = ins.sort(sub_list, cmpVideosByViews)    
+    elif sort == 3:  
+        sorted_list = sa.sort(sub_list, cmpVideosByViews)
     time2 = time.process_time()
     time3 = (time2 - time1) * 1000
     return time3, sorted_list

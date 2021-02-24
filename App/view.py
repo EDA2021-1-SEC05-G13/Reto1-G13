@@ -38,10 +38,10 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Encontrar buenos videos por categoria y pais")
-    print("3- Encontrar video tendencia por pais")
-    print("4- Encontrar video tendencia por categoria")
-    print("5- Buscar videos con mas likes")
+    print("2- Sub lista ordenada de videos con mas views")
+    print("3- ")
+    print("4- ")
+    print("5- ")
 
 def initCatalog(parametro): 
     """
@@ -55,9 +55,15 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def printOps():
-    print("1. Arraylist")
-    print("2. Linked List")
+def printResults(ord_videos, sample=10): 
+    size = lt.size(ord_videos) 
+    if size > sample: 
+        print("Los primeros ", sample, " videos ordenados son:") 
+        i=0 
+        while i <= sample: 
+            videos = lt.getElement(ord_videos,i) 
+            print("Titulo: {0} Views: {1} ".format(videos['title'],videos['views'])) 
+            i+=1
 
 catalog = None
 
@@ -68,19 +74,19 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        printOps()
-        parametro = input('Escriba un tipo de lista para representar el catalogo: LINKED_LIST o ARRAY_LIST\n')
+        parametro = int(input(("Escoja un tipo de lista para representar el catalogo: \n 1. LINKED_LIST \n 2. ARRAY_LIST\n")))
         print("Cargando información de los archivos ....")
-        catalog = initCatalog(parametro) 
+        catalog = initCatalog(parametro)    
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
 
     elif int(inputs[0]) == 2:
-        t1= time.process_time()
-        print("Se realizo req 1")
-        t2 = time.process_time()
-        print(t2-t1)
+        sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n")))
+        size = input("Indique tamaño de la muestra: ") 
+        result = controller.sortVideos(catalog, int(size), sort) 
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
+        printResults(result[1])
 
     elif int(inputs[0]) == 3:
         t4= time.process_time()
@@ -95,10 +101,7 @@ while True:
         print(t7-t6)
     
     elif int(inputs[0]) == 5:
-        size = input("Indique tamaño de la muestra: ") 
-        result = controller.sortVideos(catalog, int(size)) 
-        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
-        printResults(result[1])
+        pass
     
     else:
         sys.exit(0)

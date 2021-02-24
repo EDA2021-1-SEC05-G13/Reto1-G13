@@ -50,7 +50,7 @@ def loadVideos(catalog):
     cada uno de ellos, se crea en la lista de canales, a dicho canal y una
     referencia al video que se esta procesando.
     """
-    videosfile = cf.data_dir + 'videos/videos-small.csv'
+    videosfile = cf.data_dir + 'videos/videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'), delimiter=',')
     for video in input_file:
         model.addVideo(catalog, video)
@@ -67,10 +67,10 @@ def loadCategories(catalog):
 
 
 # Funciones de ordenamiento
-def sortVideos(catalog, size):
+def sortVideos(catalog, size, sort):
     """
     Ordena los videos por views
     """
-    return model.sortVideos(catalog, size)
+    return model.sortVideos(catalog, size, sort)
 
 # Funciones de consulta sobre el catálogo
