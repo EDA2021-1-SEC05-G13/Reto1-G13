@@ -76,8 +76,6 @@ def addCategory(catalog, category_):
     """
     lt.addLast(catalog['category-id'], category_)
     
-
-
 # Funciones para creacion de datos
 
 # Funciones de consulta
