@@ -31,7 +31,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as ss
 from DISClib.Algorithms.Sorting import insertionsort as ins
-
+from DISClib.Algorithms.Sorting import mergesort as mer
+from DISClib.Algorithms.Sorting import quicksort as qu
 assert cf
 
 """
@@ -94,7 +95,7 @@ def cmpVideosByViews(video1, video2):
 # Funciones de ordenamiento
 
 def sortVideos(catalog, size, sort):
-    sub_list = lt.subList(catalog ['videos'], 0, size)
+    sub_list = lt.subList(catalog ['videos'], 1, size)
     sub_list = sub_list.copy()
     time1 = time.process_time()
     if sort == 1:
@@ -103,6 +104,10 @@ def sortVideos(catalog, size, sort):
         sorted_list = ins.sort(sub_list, cmpVideosByViews)    
     elif sort == 3:  
         sorted_list = sa.sort(sub_list, cmpVideosByViews)
+    elif sort == 4:
+        sorted_list = mer.sort(sub_list, cmpVideosByViews)
+    elif sort == 5:
+        sorted_list = qu.sort(sub_list, cmpVideosByViews)
     time2 = time.process_time()
     time3 = (time2 - time1) * 1000
     return time3, sorted_list

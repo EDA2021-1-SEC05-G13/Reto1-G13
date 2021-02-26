@@ -26,6 +26,8 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 import time
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 
 
 """
@@ -82,7 +84,7 @@ while True:
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
 
     elif int(inputs[0]) == 2:
-        sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n")))
+        sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n 4. Merge sort\n 5.Quick sort\n")))
         size = input("Indique tamaño de la muestra: ") 
         result = controller.sortVideos(catalog, int(size), sort) 
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
