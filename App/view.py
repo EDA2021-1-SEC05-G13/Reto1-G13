@@ -59,7 +59,7 @@ def loadData(catalog):
 
 def printResults(ord_videos, sample=10): 
     size = lt.size(ord_videos) 
-    if size > sample: 
+    if size >= sample: 
         print("Los primeros ", sample, " videos ordenados son:") 
         i=0 
         while i <= sample: 
@@ -84,7 +84,7 @@ while True:
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
 
     elif int(inputs[0]) == 2:
-        sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n 4. Merge sort\n 5.Quick sort\n")))
+        sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n 4. Merge sort\n 5. Quick sort\n")))
         size = input("Indique tamaño de la muestra: ") 
         result = controller.sortVideos(catalog, int(size), sort) 
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
