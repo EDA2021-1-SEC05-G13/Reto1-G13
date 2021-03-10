@@ -40,9 +40,9 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Sub lista ordenada de videos con mas views")
+    print("2- Encontrar buenos videos por categoria y pais")
     print("3- ")
-    print("4- ")
+    print("4- Encontrar el video con mas dias como tendencia segun una categoria")
     print("5- ")
 
 def initCatalog(parametro): 
@@ -57,14 +57,14 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def printResults(ord_videos, sample=10): 
+def printResults(ord_videos, sample): 
     size = lt.size(ord_videos) 
     if size >= sample: 
         print("Los primeros ", sample, " videos ordenados son:") 
-        i=0 
+        i=1 
         while i <= sample: 
             videos = lt.getElement(ord_videos,i) 
-            print("Titulo: {0} Views: {1} ".format(videos['title'],videos['views'])) 
+            print("Trending Date: {0} Titulo: {1} Channel Title {2} Publish Time: {3} Views: {4} Likes: {5} Dislikes: {6}".format(videos['trending_date'],videos['title'],videos['channel_title'],videos['publish_time'],videos['views'],videos['likes'],videos['dislikes'])) 
             i+=1
 
 catalog = None
@@ -82,13 +82,18 @@ while True:
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
+        
+        
 
     elif int(inputs[0]) == 2:
         sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n 4. Merge sort\n 5. Quick sort\n")))
-        size = input("Indique tamaño de la muestra: ") 
-        result = controller.sortVideos(catalog, int(size), sort) 
-        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
-        printResults(result[1])
+        size = int(input("Indique tamaño de la muestra: "))
+        catid = " " + str(input("Escriba el nombre de la categoria: "))
+        country = str(input("Indique el pais en el que desea buscar: "))
+        result = controller.sortVideosCountry(catalog, catid, country)
+        printResults(result, size)
+
+
 
     elif int(inputs[0]) == 3:
         t4= time.process_time()
@@ -97,13 +102,12 @@ while True:
         print(t5-t4)
 
     elif int(inputs[0]) == 4:
-        t6= time.process_time()
-        print("Se realizo req 3")
-        t7 = time.process_time()
-        print(t7-t6)
+        cat = " " + str(input("Escriba el nombre de la categoria: "))
+        trending_video = controller.trendingVideo(catalog, cat)
     
     elif int(inputs[0]) == 5:
         pass
+        
     
     else:
         sys.exit(0)

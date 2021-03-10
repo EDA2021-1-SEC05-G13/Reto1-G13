@@ -52,15 +52,15 @@ def newCatalog(parametro):
 
     if parametro==1:
         catalog['videos'] = lt.newList('SINGLE_LINKED', 
-                                   cmpfunction=cmpVideosByViews) #cambio aca
+                                   cmpfunction=cmpVideosByViews) 
         catalog['category-id'] = lt.newList('SINGLE_LINKED',
-                                  cmpfunction=None) #cambio aca
+                                  cmpfunction=None) 
 
     elif parametro == 2:
         catalog['videos'] = lt.newList('ARRAY_LIST', 
-                                   cmpfunction=cmpVideosByViews) #cambio aca
+                                   cmpfunction=cmpVideosByViews) 
         catalog['category-id'] = lt.newList('ARRAY_LIST', 
-                                    cmpfunction=None) #cambio aca) 
+                                    cmpfunction=None) 
 
 
     return catalog
@@ -77,37 +77,110 @@ def addCategory(catalog, category_):
     """
     lt.addLast(catalog['category-id'], category_)
     
-# Funciones para creacion de datos
+def findCat(catalog, cat):
+    tam = lt.size(catalog['category-id'])
+    i = 1
+    while i <= tam:
+        categories = lt.getElement(catalog['category-id'], i)
+        if cat == str(categories ['name']):
+            numid = categories['id']
+            return numid
+        else:
+            pass
+        i+=1
 
-# Funciones de consulta
-
-# Funciones utilizadas para comparar elementos dentro de una lista
 def cmpVideosByViews(video1, video2):
     if(int(video1['views']) < int (video2['views'])):
-        return True
-    elif(int(video1['views']) > int (video2['views'])):
         return False
+    elif(int(video1['views']) > int (video2['views'])):
+        return True
     else:
         if(int(video1['likes']) < int(video2['likes'])):
             return False
         elif(int(video1['likes']) > int(video2['likes'])):
             return True
-# Funciones de ordenamiento
 
-def sortVideos(catalog, size, sort):
-    sub_list = lt.subList(catalog ['videos'], 1, size)
-    sub_list = sub_list.copy()
-    time1 = time.process_time()
-    if sort == 1:
-        sorted_list = ss.sort(sub_list, cmpVideosByViews)
-    elif sort == 2:
-        sorted_list = ins.sort(sub_list, cmpVideosByViews)    
-    elif sort == 3:  
-        sorted_list = sa.sort(sub_list, cmpVideosByViews)
-    elif sort == 4:
-        sorted_list = mer.sort(sub_list, cmpVideosByViews)
-    elif sort == 5:
-        sorted_list = qu.sort(sub_list, cmpVideosByViews)
-    time2 = time.process_time()
-    time3 = (time2 - time1) * 1000
-    return time3, sorted_list
+def cmpVideosById(video1, video2):
+    if(str(video1['video_id']) < str(video2['video_id'])):
+        return False
+    elif(str(video1['video_id']) > str(video2['video_id'])):
+        return True
+
+def cmpVideosByTD(video1, video2):
+    if(int(video1['trending days']) < int(video2['trending days'])):
+        return False
+    elif(int(video1['trending days']) > int(video2['trending days'])):
+        return True
+
+def sortVideos(catalog):
+    sub_list = catalog.copy()
+    sorted_list = mer.sort(sub_list, cmpVideosByViews) 
+    return sorted_list
+
+def sortById(catalog):
+    sub_list = catalog.copy()
+    sorted_list = mer.sort(sub_list, cmpVideosById)
+    return sorted_list
+
+def sortByTD(catalog):
+    sub_list = catalog.copy()
+    sorted_list = mer.sort(sub_list, cmpVideosByTD)
+    return sorted_list
+
+def sortVideosByCountry(catalog, catid, country):
+    siz = lt.size(catalog['videos'])
+    i = 1 
+    lst = lt.newList('ARRAY_LIST', cmpVideosByViews)
+    id_ = findCat(catalog,catid)
+    while i <= siz: 
+        videos = lt.getElement(catalog['videos'],i) 
+        if videos['country'] == country and videos['category_id'] == id_:
+            lt.addLast(lst, videos)
+        else:
+            pass
+        i+=1
+    ordered_videosByCat = sortVideos(lst)
+    return ordered_videosByCat
+
+def trendingVid(catalog, cat):
+    
+    id_ = findCat(catalog,cat)
+    lst = videosByCat(catalog, id_)
+    lst_ord = sortById(lst)
+    tam = lt.size(lst_ord)
+    f_lt = lt.newList('ARRAY_LIST')
+    vid = lt.getElement(lst_ord, 0)
+    vid['trending days'] = 1 
+    lt.addLast(f_lt, vid)
+    j = 0
+    y = 0
+
+    while y <= tam:
+        if lt.getElement(lst_ord, y)['video_id'] == lt.getElement(f_lt,j)['video_id']:
+            lt.getElement(f_lt,j)['trending days'] += 1
+            y+=1
+        else:
+            lt.getElement(lst_ord, y)['trending days'] = 1
+            lt.addLast(f_lt, lt.getElement(lst_ord,y))
+            y+=1
+            j+=1
+ 
+    list_orderedByTD = sortByTD(f_lt)
+    return list_orderedByTD
+
+def videosByCat (catalog, cat):
+    size = lt.size(catalog['videos'])
+    dic = lt.newList('ARRAY_LIST', cmpVideosByViews)
+    i = 1
+    while i <= size:
+        videos = lt.getElement(catalog['videos'], i) 
+        if videos['category_id'] == cat:
+            lt.addLast(dic, videos)
+        else:
+            pass
+        i+=1
+    
+    return dic
+
+
+

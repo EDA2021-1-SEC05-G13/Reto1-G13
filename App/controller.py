@@ -73,4 +73,10 @@ def sortVideos(catalog, size, sort):
     """
     return model.sortVideos(catalog, size, sort)
 
+def sortVideosCountry(catalog, catid, country):
+    return model.sortVideosByCountry(catalog, catid, country)
+
 # Funciones de consulta sobre el catálogo
+
+def trendingVideo(catalog, cat):
+    return model.trendingVid(catalog, cat)
