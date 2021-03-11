@@ -41,9 +41,9 @@ def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Encontrar buenos videos por categoria y pais")
-    print("3- ")
+    print("3- Encontrar video tendencia por pais")
     print("4- Encontrar el video con mas dias como tendencia segun una categoria")
-    print("5- ")
+    print("5- Encontrar videos con mas likes")
 
 def initCatalog(parametro): 
     """
@@ -82,9 +82,7 @@ while True:
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargados: ' + str(lt.size(catalog['category-id'])))
-        
-        
-
+          
     elif int(inputs[0]) == 2:
         sort = int(input(("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort\n 3. Shell sort\n 4. Merge sort\n 5. Quick sort\n")))
         size = int(input("Indique tamaño de la muestra: "))
@@ -93,22 +91,27 @@ while True:
         result = controller.sortVideosCountry(catalog, catid, country)
         printResults(result, size)
 
-
-
     elif int(inputs[0]) == 3:
-        t4= time.process_time()
-        print("Se realizo req 2")
-        t5 = time.process_time()
-        print(t5-t4)
+        sort = int(input("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort \n 3. Shell sort \n 4. Merge sort \n 5. Quick sort \n"))
+        size = int(input("Indique el tamaño de la muestra "))
+        country = str(input("Indique el pais que desea buscar: "))
+        result = controller.sortVideoPais(country)
+        printResults(result, size)
 
     elif int(inputs[0]) == 4:
         cat = " " + str(input("Escriba el nombre de la categoria: "))
         trending_video = controller.trendingVideo(catalog, cat)
+        printResults(trending_video, size)
     
     elif int(inputs[0]) == 5:
-        pass
+        sort = int(input("Escoja que tipo de algoritmo de ordenamiento desea implementar: \n 1. Selection sort \n 2. Insertion sort \n 3. Shell sort \n 4. Merge sort \n 5. Quick sort \n"))
+        size = int(input("Indique el tamaño de la muestra"))
+        country = str(input("Indique el país que desea buscar: "))
+        n = int(input("Indique el número de videos que desea enlistar: "))
+        tag = " " + str(input("Indique el/los tag/s que desea buscar: "))
+        result = controller.sortVideoLike(country, n, tag)
+        printResults(result, size)
         
-    
     else:
         sys.exit(0)
 sys.exit(0)

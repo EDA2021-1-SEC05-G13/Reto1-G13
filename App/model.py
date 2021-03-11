@@ -112,6 +112,17 @@ def cmpVideosByTD(video1, video2):
     elif(int(video1['trending days']) > int(video2['trending days'])):
         return True
 
+def cmpVideoByTag(video1, video2):
+    if(int(video1['tags']) < int(video2['tags'])):
+        return False
+    elif(int(video1['tags']) > int(video2['tags'])):
+        return True
+    else:
+        if(int(video1['likes']) < int(video2['likes'])):
+            return False
+        elif(int(video1['likes']) > int(video2['likes'])):
+            return True
+
 def sortVideos(catalog):
     sub_list = catalog.copy()
     sorted_list = mer.sort(sub_list, cmpVideosByViews) 
@@ -141,6 +152,35 @@ def sortVideosByCountry(catalog, catid, country):
         i+=1
     ordered_videosByCat = sortVideos(lst)
     return ordered_videosByCat
+
+def sortVideoPais(country)
+    siz = lt.size(catalog['videos'])
+    i = 1
+    lst = lt.newList('ARRAY_LIST', cmpVideosByTD)
+    while i <= siz:
+        videos = lt.getElement(catalog['videos'], i)
+        if videos['country'] == country :
+            lt.addLast(lst, videos)
+        else:
+            pass
+        i+=1
+    ordered_videosCoun = sortVideos(lst)
+    return ordered_videosCoun        
+
+def sortVideoLike(country, n, tag)
+    size = lt.size(catalog['videos'])
+    i = 1
+    lst = lt.newList('ARRAY_LIST', cmpVideoByTag)
+    while i <= size:
+        videos = lt.getElement(catalog['videos'], i)
+        if (videos['country'] == country, 'n'== n, videos['tags'] == tag):
+            lt.addLast(lst, videos)
+        else:
+            pass
+        i+=1
+    ordered_videosLike = sortVideos(lst)
+    return ordered_videosLike        
+
 
 def trendingVid(catalog, cat):
     

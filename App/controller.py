@@ -72,9 +72,15 @@ def sortVideos(catalog, size, sort):
     Ordena los videos por views
     """
     return model.sortVideos(catalog, size, sort)
-
+ 
 def sortVideosCountry(catalog, catid, country):
     return model.sortVideosByCountry(catalog, catid, country)
+
+def sortVideoPais(country)
+    return model.sortVideoPais(country)
+
+def sortVideoLike(country, n, tag)
+    return model.sortVideoLike(country, n, tag)
 
 # Funciones de consulta sobre el catálogo
 
